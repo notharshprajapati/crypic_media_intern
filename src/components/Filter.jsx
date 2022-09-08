@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 
 const Filter = ({ popular, setFiltered, activeGenre, setActiveGenre }) => {
   const filters = [
@@ -25,26 +26,47 @@ const Filter = ({ popular, setFiltered, activeGenre, setActiveGenre }) => {
   }, [activeGenre]);
 
   return (
-    <div className="filter-container">
-      <button
-        className={activeGenre === "All" ? "active" : ""}
-        onClick={() => setActiveGenre("All")}
-      >
-        All
-      </button>
-      {filters.map((filter, i) => {
-        return (
-          <button
-            key={i}
-            className={activeGenre === filter ? "active" : ""}
-            onClick={() => setActiveGenre(filter)}
-          >
-            {filter}
-          </button>
-        );
-      })}
-    </div>
+    <Wrapper>
+      <div className="filter-container">
+        <button
+          className={activeGenre === "All" ? "active" : ""}
+          onClick={() => setActiveGenre("All")}
+        >
+          All
+        </button>
+        {filters.map((filter, i) => {
+          return (
+            <button
+              key={i}
+              className={activeGenre === filter ? "active" : ""}
+              onClick={() => setActiveGenre(filter)}
+            >
+              {filter}
+            </button>
+          );
+        })}
+      </div>
+    </Wrapper>
   );
 };
+const Wrapper = styled.div`
+  .filter-container button {
+    margin-right: 1vh;
+    margin-bottom: 1vh;
+    min-width: 5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: white;
+    color: rgh(65, 98, 168);
+    border-radius: 1rem;
+    border: 2px solid rgb(28, 36, 53);
+    font-weight: bold;
+    cursor: pointer;
+  }
 
+  button.active {
+    background: rgb(65, 98, 168);
+    color: white;
+  }
+`;
 export default Filter;
