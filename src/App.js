@@ -1,21 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Movie from "./components/Movie";
+import "./App.css";
+import Filter from "./components/Filter";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => {
+  const [popular, setPopular] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [activeGenre, setActiveGenre] = useState("All");
+
+  const fetchPopular = async () => {
+    const data = await fetch("https://api.tvmaze.com/search/shows?q=all");
+    const movies = await data.json();
+    setPopular(movies);
+    setFiltered(movies);
+    console.log(movies);
+  };
+
+  useEffect(() => {
+    fetchPopular();
+  }, []);
+
+  return (
+    <div className="App">
+      <Filter
+        popular={popular}
+        setFiltered={setFiltered}
+        activeGenre={activeGenre}
+        setActiveGenre={setActiveGenre}
+      />
+      {filtered.map((movie) => {
+        return <Movie key={movie.show.id} movie={movie} />;
+      })}
+    </div>
+  );
+};
 
 export default App;
