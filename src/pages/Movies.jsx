@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import Filter from "../components/Filter";
 import styled from "styled-components";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 
 const Movies = () => {
   const [popular, setPopular] = useState([]);
@@ -23,21 +21,19 @@ const Movies = () => {
 
   return (
     <Wrapper>
-      <Filter
-        popular={popular}
-        setFiltered={setFiltered}
-        activeGenre={activeGenre}
-        setActiveGenre={setActiveGenre}
-      />
-      <Row xs={2} md={5} className="g-4">
-        {filtered.map((movie) => {
-          return (
-            <Col>
-              <Movie key={movie.show.id} movie={movie} />
-            </Col>
-          );
-        })}
-      </Row>
+      <div className="movies">
+        <Filter
+          popular={popular}
+          setFiltered={setFiltered}
+          activeGenre={activeGenre}
+          setActiveGenre={setActiveGenre}
+        />
+        <div className="popular-movies">
+          {filtered.map((movie) => {
+            return <Movie key={movie.show.id} movie={movie} />;
+          })}
+        </div>
+      </div>
     </Wrapper>
   );
 };
@@ -48,6 +44,10 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     column-gap: 1rem;
     row-gap: 2rem;
+  }
+  .movies {
+    margin: 0;
+    margin: 5% 20%;
   }
 `;
 
