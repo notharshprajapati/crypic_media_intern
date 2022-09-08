@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import Filter from "../components/Filter";
-import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 const Movies = () => {
   const [popular, setPopular] = useState([]);
@@ -28,13 +29,15 @@ const Movies = () => {
         activeGenre={activeGenre}
         setActiveGenre={setActiveGenre}
       />
-      <motion.div layout className="popular-movies">
-        <AnimatePresence>
-          {filtered.map((movie) => {
-            return <Movie key={movie.show.id} movie={movie} />;
-          })}
-        </AnimatePresence>
-      </motion.div>
+      <Row xs={2} md={5} className="g-4">
+        {filtered.map((movie) => {
+          return (
+            <Col>
+              <Movie key={movie.show.id} movie={movie} />
+            </Col>
+          );
+        })}
+      </Row>
     </Wrapper>
   );
 };

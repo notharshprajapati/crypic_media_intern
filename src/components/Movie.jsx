@@ -1,37 +1,22 @@
 import React from "react";
-import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
 
 const Movie = ({ movie }) => {
   return (
     <Wrapper>
-      <motion.div
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        exit={{ opacity: 0 }}
-        layout
-      >
-        <Link to={`/${movie.show.id}`} className="link">
-          <h2>{movie.show.name}</h2>
-          <img src={movie.show.image.medium} alt={movie.show.name} />
-        </Link>
-      </motion.div>
+      <Link to={`/${movie.show.id}`} className="link">
+        <Card>
+          <Card.Img variant="top" src={movie.show.image.medium} />
+          <Card.Body>
+            <Card.Title>{movie.show.name}</Card.Title>
+          </Card.Body>
+        </Card>
+      </Link>
     </Wrapper>
   );
 };
-const Wrapper = styled.div`
-  img {
-    width: 100%;
-    height: 30vh;
-    object-fit: cover;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  h2 {
-    font-size: 0.8rem;
-  }
-`;
+const Wrapper = styled.div``;
 
 export default Movie;
