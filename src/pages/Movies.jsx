@@ -14,7 +14,6 @@ const Movies = () => {
     const movies = await data.json();
     setPopular(movies);
     setFiltered(movies);
-    console.log(movies);
   };
 
   useEffect(() => {
