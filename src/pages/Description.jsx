@@ -4,12 +4,15 @@ import styled from "styled-components";
 import Genres from "../components/Genres";
 import Info from "../components/Info";
 import Links from "../components/Links";
+import ModalForm from "../components/ModalForm";
 import ProductImages from "../components/ProductImages";
 import Stars from "../components/Stars";
+import Modal from "./Modal";
 
 const Description = () => {
   const [movieData, setMovieData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -31,6 +34,9 @@ const Description = () => {
 
   return (
     <div>
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <ModalForm movieName={movieData.name} />
+      </Modal>
       {loading && <h1>loading...</h1>}
       {!loading && (
         <Wrapper>
@@ -57,6 +63,9 @@ const Description = () => {
                 <div className="links">
                   <Links url={movieData.url} name="Read More..." />
                   <Links url={movieData.officialSite} name="Official Site" />
+                  <button className="btn" onClick={() => setIsOpen(true)}>
+                    Book Ticket
+                  </button>
                 </div>
               </section>
             </div>
